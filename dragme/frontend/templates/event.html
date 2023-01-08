@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+{% load markdownify %}
+
+{% block page_header %}
+<header>
+    <h1 class="site-heading text-center text-faded d-none d-lg-block">
+        <span class="site-heading-upper text-primary mb-3">{{event.host.name}} presents:</span>
+        <span class="site-heading-lower">{{event.name}}</span>
+    </h1>
+</header>
+{% endblock %}
+
+{% block content %}
+        <section class="page-section clearfix">
+            <div class="container">
+                <div class="event">
+                    <img class="event-img img-fluid mb-3 mb-lg-0 rounded" src="{% if event.poster %}{{event.poster.url}}{% else %}{{event.show.banner.url}}{% endif %}" alt="..." />
+                    <div class="event-text text-center bg-faded rounded">
+                        <h2 class="section-heading mb-4 p-3">
+                            <span class="section-heading">{{event.start_time|date}} {{event.start_time|time}} - {{event.end_time|time}}</span>
+                            <span class="section-heading-upper">at {{event.venue.name}} in {{event.venue.city.name}}</span>
+                        </h2>
+                        <p class="mb-3">{{event.summary|safe}}</p>
+
+                        <div class="">
+                        {% if event.performers %}
+                        <h2 class="section-heading mb-4">
+                            <span class="section-heading-lower">Starring:</span>
+                        </h2>
+                        <div class="container">
+                            <div class="row">
+                                {% for performer in event.performers %}
+                                <div class="mb-4 col-4">
+                                    <a href="{% url 'performers' %}#{{performer.name}}">
+                                        <img class="rounded mr-1" src="{{performer.avatar_icon}}" onerror="this.src=\'/static/default-user.png\';" height="64" width="64" />
+                                    <div>{{performer.name}}</div>
+                                    </a>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        {% endif %}
+
+                        {% if event.musicians %}
+                        <h2 class="section-heading mb-4">
+                            <span class="section-heading">Music by:</span>
+                        </h2>
+                        {% for musician in event.musicians %}
+                        <p class="mb-3">{{musician.name}}</p>
+                        {% endfor %}
+                        {% endif %}
+
+                        {% if event.djs %}
+                        <h2 class="mb-4">
+                            <span>With DJ{% if event.djs|length > 1 %}s{% endif %}:
+                        </h2>
+                        {% for dj in event.djs %}
+                        <div class="mb-4">
+                            {% if dj.avatar %}
+                            <img class="rounded mr-1" src="{{dj.avatar_icon}}" height="64" width="64" />
+                            {% endif %}
+                            <div>{{dj.name}}</div>
+                        </div>
+                        {% endfor %}
+
+                        {% endif %}
+                        </div>
+
+                        {% if event.venmo or event.cashapp or event.show.venmo or event.show.cashapp %}
+                        <div class="mb-4">
+                            <h3>Virtual Tips:</h3>
+                            {% if event.venmo %}
+                                <a class="btn btn-primary" href="https://venmo.com/{{event.venmo}}/" target="venmo">Venmo</a>
+                            {% elif event.show.venmo %}
+                                <a class="btn btn-primary" href="https://venmo.com/{{event.show.venmo}}/" target="venmo">Venmo</a>
+                            {% endif %}
+                            {% if event.cashapp %}
+                                <a class="btn btn-primary" href="https://cash.app/{{event.cashapp}}/" target="cashapp">CashApp</a>
+                            {% elif event.show.cashapp %}
+                                <a class="btn btn-primary" href="https://cash.app/{{event.show.cashapp}}/" target="cashapp">CashApp</a>
+                            {% endif %}
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </section>
+
+{% endblock %}

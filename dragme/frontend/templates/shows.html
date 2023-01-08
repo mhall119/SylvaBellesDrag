@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block page_header %}
+<header>
+    <h1 class="site-heading text-center text-faded d-none d-lg-block">
+        <span class="site-heading-lower text-primary mb-3">Our Shows</span>
+    </h1>
+</header>
+{% endblock %}
+
+{% block content %}
+
+{% for show in shows %}
+<section class="page-section clearfix">
+    <div class="container">
+        <div class="intro">
+            <img class="intro-img img-fluid mb-3 mb-lg-0 rounded" src="{{show.banner.url}}" alt="..." />
+            <div class="intro-text left-0 text-center bg-faded p-5 rounded">
+                <h2 class="section-heading mb-4">
+                    <span class="section-heading-lower">{{show.name}}</span>
+                    <span class="section-heading-upper">Hosted by: {{show.runner}}</span>
+                </h2>
+                <p class="mb-3">{{show.summary|safe}}</p>
+                {% if show.next_event %}
+                <h2 class="section-heading mb-4">
+                    <span class="section-heading-upper">Next Event: <a href="{% url 'show_event' show.next_event.id %}">{{show.next_event.start_time|date}}</a></span>
+                </h2>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+{% endfor %}
+
+{% endblock %}

@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% block page_header %}
+<header>
+    <h1 class="site-heading text-center text-faded d-none d-lg-block">
+        <span class="site-heading-lower text-primary mb-3">Our Performers</span>
+    </h1>
+</header>
+{% endblock %}
+
+{% block content %}
+
+{% for performer in performers %}
+<section class="page-section clearfix">
+    <a name="{{performer.name}}"></a>
+    <div class="container">
+        <div class="profile">
+            {% if performer.profile %}
+                <img class="profile-img img-fluid mb-3 mb-lg-0 rounded" src="{{performer.profile.url}}" alt="..." />
+            {% else %}
+                <div class="profile-img" style="min-height: 256px"></div>
+            {% endif %}
+            <div class="profile-text left-0 text-center bg-faded p-5 rounded">
+                <h2 class="section-heading mb-4">
+                    <span class="section-heading-lower">{{performer.name}}</span>
+                </h2>
+
+                <div class="mb-4">
+                    {% if performer.website %}
+                        <a class="btn btn-primary" href="{{performer.website}}" target="website">Website</a>
+                    {% endif %}
+                    {% if performer.instagram %}
+                        <a class="btn btn-primary" href="https://instagram.com/{{performer.instagram}}" target="instagram">Instagram</a>
+                    {% endif %}
+                    {% if performer.tiktok %}
+                        <a class="btn btn-primary" href="https://tiktok.com/@{{performer.tiktok}}" target="tiktok">TikTok</a>
+                    {% endif %}
+                    {% if performer.twitter %}
+                        <a class="btn btn-primary" href="https://twitter.com/{{performer.twitter}}" target="twitter">Twitter</a>
+                    {% endif %}
+                </div>
+
+                {% if performer.upcoming_events %}
+                    <h2 class="section-heading">
+                        <span class="section-heading-upper">See them next at: </span>
+                    </h2>
+                    {% for event in performer.upcoming_events %}
+                    <div class="section-heading mb-4"><a class="section-heading-upper" href="{% url 'show_event' event.id %}">{{event.name}} in {{event.venue.city.name}} on {{event.start_time|date}}</a></div>
+                    {% endfor %}
+                {% endif %}
+
+                {% if performer.venmo or performer.cashapp %}
+                <div class="">
+                    <h3>Virtual Tips:</h3>
+                    {% if performer.venmo %}<a class="btn btn-primary" href="https://venmo.com/{{performer.venmo}}/" target="venmo">Venmo</a>{% endif %}
+                    {% if performer.cashapp %}<a class="btn btn-primary" href="https://cash.app/{{performer.cashapp}}/" target="cashapp">CashApp</a>{% endif %}
+                </div>
+                {% endif %}
+
+            </div>
+        </div>
+    </div>
+</section>
+{% endfor %}
+
+{% endblock %}

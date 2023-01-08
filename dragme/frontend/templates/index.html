@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block content %}
+        <section class="page-section clearfix">
+            <div class="container">
+                <div class="intro">
+                    <img class="intro-img img-fluid mb-3 mb-lg-0 rounded" src="{{next_event.show.banner.url}}" width="512" alt="..." />
+                    <div class="intro-text left-0 text-center bg-faded p-5 rounded">
+                        <h2 class="section-heading">
+                            <span class="section-heading-upper">Coming up Next:</span>
+                            <span class="section-heading-lower">{{next_event.name}}</span>
+                        </h2>
+                        <div class="">at <b>{{next_event.venue}}</b></div>
+
+                        <p class="mb-3">{{next_event.summary|safe}}</p>
+                        {% if next_event.performers %}
+                        <h3 class="section-heading mb-4">
+                            <span class="section-heading-upper">Starring:</span>
+                        </h3>
+                        <div class="container">
+                            <div class="row">
+                                {% for performer in next_event.performers %}
+                                <div class="mb-4 col-4">
+                                    <a href="{% url 'performers' %}#{{performer.name}}">
+                                    <img class="rounded mr-1" src="{{performer.avatar_icon}}" onerror="this.src=\'/static/default-user.png\';" height="64" width="64" />
+                                    <div>{{performer.name}}</div>
+                                    </a>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        {% endif %}
+                        <div class="intro-button mx-auto"><a class="btn btn-primary btn-xl" href="{% url 'show_event' next_event.id %}">Join Us!</a></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- <section class="page-section cta">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-9 mx-auto">
+                        <div class="cta-inner bg-faded text-center rounded">
+                            <h2 class="section-heading mb-4">
+                                <span class="section-heading-upper">Call To Action</span>
+                                <span class="section-heading-lower">Do it now</span>
+                            </h2>
+                            <p class="mb-0">Use this section to give a call to action, prompt viewers of the site to do something.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section> -->
+{% endblock %}
