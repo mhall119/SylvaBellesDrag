@@ -11,7 +11,9 @@ class UserAdmin(UserAdmin):
         ('', {'fields': ('last_login',)}),
     )
 
-admin.register(Profile)(admin.ModelAdmin)
+@admin.register(Profile)
+class ProfileAdmin(admin.ModelAdmin):
+    raw_id_fields = ('city',)
 
 admin.register(Lineage)(admin.ModelAdmin)
 
