@@ -283,6 +283,15 @@ class Event(models.Model):
 
     gallery = models.ManyToManyField(UploadedImage, blank=True)
 
+    @property
+    def poster_url(self):
+        if self.poster:
+            return self.poster.url
+        elif self.show.banner:
+            return self.banner.url
+        else:
+            return None
+            
     @cached_property
     def performers(self):
         return [t.performer for t in Talent.objects.filter(event=self, role=Roles.PERFORMER)]

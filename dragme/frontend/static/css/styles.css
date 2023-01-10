@@ -11435,8 +11435,8 @@ p {
     float: right;
   }
   .intro .intro-text {
-    left: 0;
-    width: 60%;
+    left: -3%;
+    width: 40%;
     margin-top: 3rem;
     position: absolute;
   }
@@ -11470,6 +11470,7 @@ p {
 @media (min-width: 1200px) {
   .intro .intro-text {
     width: 45%;
+    clear: both;
   }
 }
 
