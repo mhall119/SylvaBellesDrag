@@ -11429,14 +11429,24 @@ p {
 .event {
   position: relative;
 }
+.dark-link {
+  color: #092e81;
+  text-decoration: none;
+  font-family: sans-serif;
+  font-weight: 500;
+  font-size: 1em;
+}
+.btn {
+  font-family: sans-serif;
+}
 @media (min-width: 992px) {
   .intro .intro-img {
     width: 60%;
     float: right;
   }
   .intro .intro-text {
-    left: -3%;
-    width: 40%;
+    left: 0%;
+    width: 45%;
     margin-top: 3rem;
     position: absolute;
   }

@@ -31,7 +31,7 @@
                             <div class="row">
                                 {% for performer in event.performers %}
                                 <div class="mb-4 col-4">
-                                    <a href="{% url 'performers' %}#{{performer.name}}">
+                                    <a class="dark-link" href="{% url 'performers' %}#{{performer.name}}">
                                         <img class="rounded mr-1" src="{{performer.avatar_icon}}" onerror="this.src=\'/static/default-user.png\';" height="64" width="64" />
                                     <div>{{performer.name}}</div>
                                     </a>
@@ -70,14 +70,14 @@
                         <div class="mb-4">
                             <h3>Virtual Tips:</h3>
                             {% if event.venmo %}
-                                <a class="btn btn-primary" href="https://venmo.com/{{event.venmo}}/" target="venmo">Venmo</a>
+                                <a class="btn btn-success" href="https://venmo.com/{{event.venmo}}/" target="venmo">Venmo</a>
                             {% elif event.show.venmo %}
-                                <a class="btn btn-primary" href="https://venmo.com/{{event.show.venmo}}/" target="venmo">Venmo</a>
+                                <a class="btn btn-success" href="https://venmo.com/{{event.show.venmo}}/" target="venmo">Venmo</a>
                             {% endif %}
                             {% if event.cashapp %}
-                                <a class="btn btn-primary" href="https://cash.app/{{event.cashapp}}/" target="cashapp">CashApp</a>
+                                <a class="btn btn-success" href="https://cash.app/{{event.cashapp}}/" target="cashapp">CashApp</a>
                             {% elif event.show.cashapp %}
-                                <a class="btn btn-primary" href="https://cash.app/{{event.show.cashapp}}/" target="cashapp">CashApp</a>
+                                <a class="btn btn-success" href="https://cash.app/{{event.show.cashapp}}/" target="cashapp">CashApp</a>
                             {% endif %}
                         </div>
                         {% endif %}

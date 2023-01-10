@@ -45,15 +45,15 @@
                         <span class="section-heading-upper">See them next at: </span>
                     </h2>
                     {% for event in performer.upcoming_events %}
-                    <div class="section-heading mb-4"><a class="section-heading-upper" href="{% url 'show_event' event.id %}">{{event.name}} in {{event.venue.city.name}} on {{event.start_time|date}}</a></div>
+                    <div class="section-heading mb-4"><a class="dark-link" class="section-heading-upper" href="{% url 'show_event' event.id %}">{{event.name}} in {{event.venue.city.name}} on {{event.start_time|date}}</a></div>
                     {% endfor %}
                 {% endif %}
 
                 {% if performer.venmo or performer.cashapp %}
                 <div class="">
                     <h3>Virtual Tips:</h3>
-                    {% if performer.venmo %}<a class="btn btn-primary" href="https://venmo.com/{{performer.venmo}}/" target="venmo">Venmo</a>{% endif %}
-                    {% if performer.cashapp %}<a class="btn btn-primary" href="https://cash.app/{{performer.cashapp}}/" target="cashapp">CashApp</a>{% endif %}
+                    {% if performer.venmo %}<a class="btn btn-success" href="https://venmo.com/{{performer.venmo}}/" target="venmo">Venmo</a>{% endif %}
+                    {% if performer.cashapp %}<a class="btn btn-success" href="https://cash.app/{{performer.cashapp}}/" target="cashapp">CashApp</a>{% endif %}
                 </div>
                 {% endif %}
 
