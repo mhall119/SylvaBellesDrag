@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+
+{% block page_header %}
+<header>
+    <h1 class="site-heading text-center text-faded d-none d-lg-block">
+        <span class="site-heading-lower text-primary mb-3">{{profile.name}}</span>
+    </h1>
+</header>
+{% endblock %}
+
+{% block content %}
+
+<section class="page-section clearfix">
+    <div class="container">
+        <div class="profile">
+            {% if profile.profile %}
+                <img class="profile-img img-fluid mb-3 mb-lg-0 rounded" src="{{profile.profile.url}}" alt="..." />
+            {% else %}
+                <div class="profile-img" style="min-height: 256px"></div>
+            {% endif %}
+            <div class="profile-text left-0 text-center bg-faded p-5 rounded">
+
+                {% if profile.upcoming_events %}
+                    <h3 class="section-heading text-lg">
+                        <span class="section-heading-upper">See {{profile.them}} next at:</span>
+                    </h3>
+                    {% for event in profile.upcoming_events %}
+                    <div class="section-heading mb-4"><a class="dark-link" class="section-heading-upper" href="{% url 'show_event' event.id %}">{{event.name}} in {{event.venue.city.name}} on {{event.start_time|date}}</a></div>
+                    {% endfor %}
+                {% endif %}
+
+                <div class="mb-4">
+                    {% if profile.website %}
+                        <a class="btn btn-primary" href="{{profile.website}}" target="website">Website</a>
+                    {% endif %}
+                    {% if profile.instagram %}
+                        <a class="btn btn-primary" href="https://instagram.com/{{profile.instagram}}" target="instagram">Instagram</a>
+                    {% endif %}
+                    {% if profile.tiktok %}
+                        <a class="btn btn-primary" href="https://tiktok.com/@{{profile.tiktok}}" target="tiktok">TikTok</a>
+                    {% endif %}
+                    {% if profile.twitter %}
+                        <a class="btn btn-primary" href="https://twitter.com/{{profile.twitter}}" target="twitter">Twitter</a>
+                    {% endif %}
+                </div>
+
+                {% if profile.venmo or profile.cashapp %}
+                <div class="mb-4">
+                    {% if profile.venmo %}<a class="btn btn-success" href="https://venmo.com/{{profile.venmo}}/" target="venmo">Venmo</a>{% endif %}
+                    {% if profile.cashapp %}<a class="btn btn-success" href="https://cash.app/{{profile.cashapp}}/" target="cashapp">CashApp</a>{% endif %}
+                </div>
+                {% endif %}
+
+                {% if profile.past_events %}
+                    <h2 class="section-heading">
+                        <span class="section-heading-upper">{{profile.their}} Past appearances: </span>
+                    </h2>
+                    {% for event in profile.past_events %}
+                    <div class="section-heading mb-4"><a class="dark-link" class="section-heading-upper" href="{% url 'show_event' event.id %}">{{event.name}} in {{event.venue.city.name}} on {{event.start_time|date}}</a></div>
+                    {% endfor %}
+                {% endif %}
+
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

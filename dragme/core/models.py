@@ -41,6 +41,11 @@ class Roles(models.IntegerChoices):
     DJ = 2, _("DJ")
     MUSICIAN = 3, _("Musician")
     
+class Pronouns(models.TextChoices):
+    HE = 'he', "He/Him/His"
+    SHE = 'she', "She/Her/Hers"
+    THEY = 'they', "They/Them/Theirs"
+            
 class Profile(models.Model):
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
 
@@ -81,6 +86,7 @@ class Profile(models.Model):
         blank=True,
         on_delete=models.CASCADE,
     )
+    pronouns = models.CharField(choices=Pronouns.choices, default=Pronouns.SHE, max_length=32)
 
     children = models.ManyToManyField('Profile', related_name='parents', through='Lineage', through_fields=('parent', 'child'))
     gallery = models.ManyToManyField(UploadedImage, blank=True)
@@ -95,6 +101,36 @@ class Profile(models.Model):
 
     def upcoming_events(self):
         return Event.objects.filter(lineup__performer=self, end_time__gt=datetime.datetime.now())
+
+    def past_events(self):
+        return Event.objects.filter(lineup__performer=self, end_time__lt=datetime.datetime.now())
+
+    @property
+    def they(self):
+        if self.pronouns == Pronouns.HE:
+            return 'he'
+        elif self.pronouns == Pronouns.SHE:
+            return 'she'
+        else:
+            return 'they'
+            
+    @property
+    def them(self):
+        if self.pronouns == Pronouns.HE:
+            return 'him'
+        elif self.pronouns == Pronouns.SHE:
+            return 'her'
+        else:
+            return 'them'
+            
+    @property
+    def their(self):
+        if self.pronouns == Pronouns.HE:
+            return 'his'
+        elif self.pronouns == Pronouns.SHE:
+            return 'her'
+        else:
+            return 'their'
 
     def __str__(self):
         return self.name
@@ -291,7 +327,7 @@ class Event(models.Model):
             return self.banner.url
         else:
             return None
-            
+
     @cached_property
     def performers(self):
         return [t.performer for t in Talent.objects.filter(event=self, role=Roles.PERFORMER)]

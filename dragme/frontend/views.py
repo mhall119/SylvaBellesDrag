@@ -33,6 +33,13 @@ def performers(request):
     }
     return render(request, 'performers.html', context)
 
+def profile(request, profile_id):
+    profile = get_object_or_404(Profile, id=profile_id)
+    context = {
+        'profile': profile,
+    }
+    return render(request, 'profile.html', context)
+
 def store(request):
 
     context = {
