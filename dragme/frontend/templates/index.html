@@ -3,6 +3,7 @@
 {% block content %}
         <section class="page-section clearfix">
             <div class="container">
+                {% if next_event %}
                 <div class="intro">
                     <img class="intro-img img-fluid mb-3 mb-lg-0 rounded" src="{{next_event.poster_url}}" width="512" alt="..." />
                     <div class="intro-text left-0 text-center bg-faded p-5 rounded">
@@ -10,7 +11,7 @@
                             <span class="section-heading-upper">Coming up Next:</span>
                             <span class="section-heading-lower">{{next_event.name}}</span>
                         </h2>
-                        <div class="">at <b>{{next_event.venue}}</b></div>
+                        <div class=""><b>{{next_event.start_time|date}}</b> at <b>{{next_event.venue}}</b></div>
 
                         <p class="mb-3">{{next_event.summary|safe}}</p>
                         {% if next_event.performers %}
@@ -48,6 +49,16 @@
                         <div class="intro-button mx-auto"><a class="btn btn-primary btn-xl" href="{% url 'show_event' next_event.id %}">Join Us!</a></div>
                     </div>
                 </div>
+                {% else %}
+                <div class="row justify-content-center">
+                    <div class="intro-text left-0 text-center bg-faded p-5 rounded col-6">
+                        <h2 class="section-heading">
+                            <span class="section-heading-upper">No Scheduled Events</span>
+                            <span class="section-heading-lower">Check back with us later!</span>
+                        </h2>
+                    </div>
+                </div>
+                {% endif %}
             </div>
         </section>
         <!-- <section class="page-section cta">

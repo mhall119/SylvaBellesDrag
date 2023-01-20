@@ -8,7 +8,7 @@ from core.models import *
 
 def home(request):
     context = {
-        'next_event': Event.objects.filter(end_time__gte=datetime.datetime.utcnow()).order_by('start_time').first()
+        'next_event': Event.objects.filter(end_time__gte=datetime.datetime.utcnow() - datetime.timedelta(days=1)).order_by('start_time').first()
     }
     return render(request, 'index.html', context)
 
