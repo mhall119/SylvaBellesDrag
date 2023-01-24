@@ -1,6 +1,14 @@
 {% extends 'base.html' %}
 {% load markdownify %}
 
+{% block opengraph %}
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="{{event.name}}" />
+        <meta property="og:url" content="{{request.scheme}}://{{request.META.HTTP_HOST}}{% url 'show_event' event.id %}" />
+        <meta property="og:description" content="{{event.summary}}" />
+        <meta property="og:image" content="{{request.scheme}}://{{request.META.HTTP_HOST}}{% if event.poster %}{{event.poster.url}}{% else %}{{event.show.banner.url}}{% endif %}" />
+{% endblock %}
+
 {% block page_header %}
 <header>
     <h1 class="site-heading text-center text-faded d-none d-lg-block">

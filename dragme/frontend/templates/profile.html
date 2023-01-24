@@ -1,5 +1,15 @@
 {% extends 'base.html' %}
 
+{% block opengraph %}
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="{{profile.name}}" />
+        <meta property="og:url" content="{{request.scheme}}://{{request.META.HTTP_HOST}}{% url 'profile' profile.id %}" />
+        <meta property="og:description" content="Follow {{profile.them}} on Sylva Belles Drag!" />
+        {% if profile.avatar %}<meta property="og:image" content="{{request.scheme}}://{{request.META.HTTP_HOST}}{{profile.avatar.url}}" />
+        {% elif profile.profile %}<meta property="og:image" content="{{request.scheme}}://{{request.META.HTTP_HOST}}{{profile.profile.url}}" />
+        {% endif %}
+{% endblock %}
+
 {% block page_header %}
 <header>
     <h1 class="site-heading text-center text-faded">

@@ -1,11 +1,29 @@
 {% extends 'base.html' %}
 
+{% block opengraph %}
+    {% if next_event %}
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="{{next_event.name}}" />
+        <meta property="og:url" content="{{request.scheme}}://{{request.META.HTTP_HOST}}{% url 'show_event' next_event.id %}" />
+        <meta property="og:description" content="{{next_event.summary}}" />
+        {% if next_event.poster %}<meta property="og:image" content="{{request.scheme}}://{{request.META.HTTP_HOST}}{{next_event.poster.url}}" />
+        {% elif next_event.show.banner %}<meta property="og:image" content="{{request.scheme}}://{{request.META.HTTP_HOST}}{{next_event.show.banner.url}}" />
+        {% endif %}
+    {% else %}
+        {{ block.super }}
+    {% endif %}
+{% endblock %}
+
 {% block content %}
         <section class="page-section clearfix">
             <div class="container">
                 {% if next_event %}
                 <div class="intro">
-                    <img class="intro-img img-fluid mb-3 mb-lg-0 rounded" src="{{next_event.poster_url}}" width="512" alt="..." />
+                    {% if next_event.poster or next_event.show.banner %}
+                        <img class="intro-img img-fluid mb-3 mb-lg-0 rounded" src="{{next_event.poster_url}}" width="512" alt="..." />
+                    {% else %}
+                        <div class="intro-img" style="min-height: 256px"></div>
+                    {% endif %}
                     <div class="intro-text left-0 text-center bg-faded p-5 rounded">
                         <h2 class="section-heading">
                             <span class="section-heading-upper">Coming up Next:</span>

@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -15,8 +16,15 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
+        <meta property="og:site_name" content="Sylva Bells Drag" />
+        {% block opengraph %}
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="Sylva Belles Drag" />
+        <meta property="og:url" content="{{request.scheme}}://{{request.META.HTTP_HOST}}{{request.path_info}}" />
+        <meta property="og:image" content="{{request.scheme}}://{{request.META.HTTP_HOST}}{% static 'img/sylvabelles_logo.png' %}" />
+        {% endblock %}
         <title>Sylva Belles Drag</title>
-        <link rel="icon" type="image/x-icon" href="/static/img/sylvabelles_icon.png" />
+        <link rel="icon" type="image/x-icon" href="{% static 'img/sylvabelles_icon.png' %}" />
         <!-- Font Awesome icons (free version)-->
         <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
         <!-- Google fonts-->
