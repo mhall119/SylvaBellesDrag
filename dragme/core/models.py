@@ -102,10 +102,10 @@ class Profile(models.Model):
             return '/static/user-default.png'
 
     def upcoming_events(self):
-        return Event.objects.filter(lineup__performer=self, end_time__gt=datetime.datetime.now())
+        return Event.objects.filter(lineup__performer=self, end_time__gt=datetime.datetime.now()).order_by('start_time')
 
     def past_events(self):
-        return Event.objects.filter(lineup__performer=self, end_time__lt=datetime.datetime.now())
+        return Event.objects.filter(lineup__performer=self, end_time__lt=datetime.datetime.now()).order_by('-end_time')
 
     @property
     def they(self):
