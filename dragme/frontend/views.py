@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404
-from django.db.models import Max, F
+from django.db.models import Max, F, Q
 import datetime
 
 from core.models import *
@@ -27,7 +27,13 @@ def shows(request):
     return render(request, 'shows.html', context)
 
 def performers(request):
-    performers = Profile.objects.filter(active=True).annotate(last_show=Max('schedule__event__start_time')).order_by(F('last_show').desc(nulls_last=True))
+    next_event = Event.objects.filter(end_time__gte=datetime.datetime.utcnow() - datetime.timedelta(days=1)).order_by('start_time').first()
+    if next_event:
+        as_of_date = next_event.start_time
+    else:
+        as_of_date = datetime.datetime.utcnow()
+    performers = Profile.objects.filter(active=True).annotate(last_show=Max('schedule__event__start_time', filter=Q(schedule__event__start_time__lte=as_of_date))).order_by(F('last_show').desc(nulls_last=True), 'name')
+
     context = {
         'performers': performers,
     }
