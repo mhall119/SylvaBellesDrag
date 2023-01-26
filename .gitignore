@@ -1,4 +1,13 @@
-.DS_Store
-__pycache__/*
+*.pyc
+*.sqlite
+*.sqlite3
+.vscode
+local_settings.py
+/static/
+/env/
+**/.DS_Store
 *.db
-*.sqlite*
+dragme/house_banners/
+dragme/profiles/
+dragme/avatars/
+dragme/event_promos/
