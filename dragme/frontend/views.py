@@ -32,7 +32,7 @@ def performers(request):
         as_of_date = next_event.start_time
     else:
         as_of_date = datetime.datetime.utcnow()
-    performers = Profile.objects.filter(active=True).annotate(last_show=Max('schedule__event__start_time', filter=Q(schedule__event__start_time__lte=as_of_date))).order_by(F('last_show').desc(nulls_last=True), 'name')
+    performers = Profile.objects.filter(active=True).annotate(last_show=Max('schedule__event__start_time', filter=Q(schedule__event__start_time__lte=as_of_date, schedule__status=Talent.Statuses.CONFIRMED))).order_by(F('last_show').desc(nulls_last=True), 'name')
 
     context = {
         'performers': performers,

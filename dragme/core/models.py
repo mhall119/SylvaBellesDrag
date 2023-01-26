@@ -330,15 +330,15 @@ class Event(models.Model):
 
     @cached_property
     def performers(self):
-        return [t.performer for t in Talent.objects.filter(event=self, role=Roles.PERFORMER)]
+        return [t.performer for t in Talent.objects.filter(event=self, role=Roles.PERFORMER, status=Talent.Statuses.CONFIRMED)]
 
     @property
     def musicians(self):
-        return [t.performer for t in Talent.objects.filter(event=self, role=Roles.MUSICIAN)]
+        return [t.performer for t in Talent.objects.filter(event=self, role=Roles.MUSICIAN, status=Talent.Statuses.CONFIRMED)]
 
     @property
     def djs(self):
-        return [t.performer for t in Talent.objects.filter(event=self, role=Roles.DJ)]
+        return [t.performer for t in Talent.objects.filter(event=self, role=Roles.DJ, status=Talent.Statuses.CONFIRMED)]
 
     def __str__(self):
         return f'{self.name} on {self.start_time.date()} at {self.venue}'
