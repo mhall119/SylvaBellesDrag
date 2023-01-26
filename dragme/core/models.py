@@ -47,6 +47,8 @@ class Pronouns(models.TextChoices):
     THEY = 'they', "They/Them/Theirs"
             
 class Profile(models.Model):
+    class Meta:
+        ordering = ('name',)
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
 
     name = models.CharField(max_length=256, blank=False, null=False)
@@ -324,7 +326,7 @@ class Event(models.Model):
         if self.poster:
             return self.poster.url
         elif self.show.banner:
-            return self.banner.url
+            return self.show.banner.url
         else:
             return None
 
