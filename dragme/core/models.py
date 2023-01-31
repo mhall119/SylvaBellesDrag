@@ -40,6 +40,7 @@ class Roles(models.IntegerChoices):
     PERFORMER = 1, _("Performer")
     DJ = 2, _("DJ")
     MUSICIAN = 3, _("Musician")
+    KITTEN = 4, _("Kitten")
     
 class Pronouns(models.TextChoices):
     HE = 'he', "He/Him/His"
@@ -102,10 +103,10 @@ class Profile(models.Model):
             return '/static/user-default.png'
 
     def upcoming_events(self):
-        return Event.objects.filter(lineup__performer=self, end_time__gt=datetime.datetime.now()).order_by('start_time')
+        return Event.objects.filter(status=Event.CONFIRMED, lineup__performer=self, lineup__status=Talent.Statuses.CONFIRMED, end_time__gt=datetime.datetime.now()).order_by('start_time')
 
     def past_events(self):
-        return Event.objects.filter(lineup__performer=self, end_time__lt=datetime.datetime.now()).order_by('-end_time')
+        return Event.objects.filter(status=Event.CONFIRMED, lineup__performer=self, lineup__status=Talent.Statuses.CONFIRMED, end_time__lt=datetime.datetime.now()).order_by('-end_time')
 
     @property
     def they(self):
