@@ -34,7 +34,7 @@ def performers(request):
         as_of_date = datetime.datetime.utcnow()
     performers = Profile.objects.filter(active=True)
     performers = performers.annotate(last_show=Max('schedule__event__start_time', filter=Q(schedule__event__start_time__lte=as_of_date, schedule__status=Talent.Statuses.CONFIRMED, schedule__role=Roles.PERFORMER)))
-    performers = performers.filter(last_show__isnull=False).order_by('last_show', 'name')
+    performers = performers.filter(last_show__isnull=False).order_by('-last_show', 'name')
 
     context = {
         'performers': performers,
