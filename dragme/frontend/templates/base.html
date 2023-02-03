@@ -23,7 +23,7 @@
         <meta property="og:url" content="{{request.scheme}}://{{request.META.HTTP_HOST}}{{request.path_info}}" />
         <meta property="og:image" content="{{request.scheme}}://{{request.META.HTTP_HOST}}{% static 'img/sylvabelles_logo.png' %}" />
         {% endblock %}
-        <title>Sylva Belles Drag</title>
+        <title>{% block title %}Sylva Belles Drag{% endblock %}</title>
         <link rel="icon" type="image/x-icon" href="{% static 'img/sylvabelles_icon.png' %}" />
         <!-- Font Awesome icons (free version)-->
         <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>

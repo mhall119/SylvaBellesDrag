@@ -1,9 +1,11 @@
 {% extends 'base.html' %}
 {% load markdownify %}
 
+{% block title %}{{event.name}} - {{block.super}}{% endblock %}
+
 {% block opengraph %}
         <meta property="og:type" content="website" />
-        <meta property="og:title" content="Come see {{event.name}}" />
+        <meta property="og:title" content="See {{event.name}} on {{event.start_time|date}}" />
         <meta property="og:url" content="{{request.scheme}}://{{request.META.HTTP_HOST}}{% url 'show_event' event.id %}" />
         <meta property="og:description" content="{{event.summary}}" />
         <meta property="og:image" content="{{request.scheme}}://{{request.META.HTTP_HOST}}{% if event.poster %}{{event.poster.url}}{% else %}{{event.show.banner.url}}{% endif %}" />
