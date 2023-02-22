@@ -37,5 +37,6 @@ class TalentInline(admin.TabularInline):
 class EventAdmin(admin.ModelAdmin):
     inlines = [TalentInline,]
     list_filter = ('show', 'start_time', 'status')
+    list_display = ('name', 'show', 'start_time', 'venue', 'status')
 
 admin.register(Talent)(admin.ModelAdmin)
