@@ -11,7 +11,9 @@
   <h3>Remove: {{active_talent.performer.name}}</h3>
 </div>
 
-Are you sure you want to remove {{active_talent.performer.name}} from {{active_event.name}}?
+<p class="mb-3">
+  Are you sure you want to remove {{active_talent.performer.name}} from {{active_event.name}}?
+</p>
 
 <form method="post" action="{% url 'delete_talent' show_id=active_show.id event_id=active_event.id talent_id=active_talent.id %}">
   {% csrf_token %}

@@ -252,7 +252,7 @@ def add_talent(request, show_id, event_id):
 
 @login_required
 def edit_talent(request, show_id, event_id, talent_id):
-    talent = get_object_or_404(Talent, event_id=event_id, event__show_id=show_id)
+    talent = get_object_or_404(Talent, id=talent_id, event_id=event_id, event__show_id=show_id)
     event = talent.event
     show = event.show
     if show.runner.user is not request.user and not request.user.is_superuser:
@@ -278,7 +278,7 @@ def edit_talent(request, show_id, event_id, talent_id):
 
 @login_required
 def delete_talent(request, show_id, event_id, talent_id):
-    talent = get_object_or_404(Talent, event_id=event_id, event__show_id=show_id)
+    talent = get_object_or_404(Talent, id=talent_id, event_id=event_id, event__show_id=show_id)
     event = talent.event
     show = event.show
     if show.runner.user is not request.user and not request.user.is_superuser:
