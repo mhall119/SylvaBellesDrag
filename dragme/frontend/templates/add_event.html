@@ -13,7 +13,7 @@
 
 <form method="post" action="{% url 'add_event' show_id=active_show.id %}" enctype="multipart/form-data">
   {% csrf_token %}
-{{ talent_form|crispy }}
+{{ event_form|crispy }}
 <input class="btn btn-success" type="submit" value="Add"/>
 <a class="btn btn-secondary" href="{% url 'manage_show' show_id=active_show.id %}">Cancel</a>
 </form>
