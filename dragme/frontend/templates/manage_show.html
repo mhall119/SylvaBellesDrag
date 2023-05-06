@@ -1,0 +1,78 @@
+{% extends 'manage.html' %}
+{% load static %}
+{% block page_title %} | Login{% endblock %}
+
+{% block page_header %}
+{% endblock %}
+
+{% block right_nav %}
+<div class="col-md-3 col-sm-12">
+  <div class="header-dark mb-2">Events</div>
+  {% for event in active_show.events.all|slice:":20" %}
+  <div class="row mb-2 {% if active_event and active_event.id == event.id %}hilight-dark{% endif %}">
+    <div class="col-8 sidenav">
+      <a href="{% url 'manage_event' show_id=active_show.id event_id=event.id %}">
+        <div>{{event.name}}</div>
+        <div class="small text-muted">{{ event.start_time }}</div>
+      </a>
+    </div>
+    <div class="col-2">
+      <a class="btn btn-danger btn-sm" href="{% url 'delete_event' show_id=active_show.id event_id=event.id %}"><i class="fas fa-trash"></i></a>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}
+
+{% block content %}
+
+<div class="mb-3 align-items-center d-flex flex-row justify-content-between">
+  <h3>{{active_show.name}}</h3>
+  <div>
+      <a class="btn hilight-dark" href="{% url 'edit_show' show_id=active_show.id %}"><i class="fas fa-edit"></i> <span class="d-none d-sm-inline">Edit</span></a>
+      <a class="btn btn-success" href="{% url 'add_event' show_id=active_show.id %}"><i class="fas fa-add"></i> <span class="d-none d-sm-inline">Event</span></a>
+  </div>
+</div>
+
+<div class="row mb-2">
+  {% if active_show.banner %}
+  <div class="col-sm-12 col-lg-4 col-xxl-2 fw-bold">Banner:</div>
+  <div class="col-sm-12 col-lg-6"><img class="intro-img img-fluid mb-3 mb-lg-0 rounded object-fit-contain" src="{{active_show.banner.url}}" alt="..." /></div>
+  <div class="col-sm-0 col-lg-2 col-xxl-4"></div>
+  {% endif %}
+
+  <div class="col-sm-12 col-lg-4 col-xxl-2 fw-bold">Active:</div>
+  <div class="col-sm-12 col-lg-8 col-xxl-10">{{active_show.active}}</div>
+</div>
+
+<div class="row mb-2">
+  <div class="col-sm-12 col-lg-4 col-xxl-2 fw-bold">Summary:</div>
+  <div class="col-sm-12 col-lg-8 col-xxl-10">{{active_show.summary|safe}}</div>
+</div>
+
+<div class="row mb-2">
+  <div class="col-sm-12 col-lg-4 col-xxl-2 fw-bold">Instagram:</div>
+  <div class="col-sm-12 col-lg-8 col-xxl-10">{% if active_show.instagram %}<a href="https://instagram.com/{{active_show.instagram}}" target="instagram">{{active_show.instagram}}</a>{% endif %}</div>
+</div>
+
+<div class="row mb-2">
+  <div class="col-sm-12 col-lg-4 col-xxl-2 fw-bold">Twitter:</div>
+  <div class="col-sm-12 col-lg-8 col-xxl-10">{% if active_show.twitter %}<a href="https://twitter.com/{{active_show.twitter}}/" target="twitter">{{active_show.twitter}}</a>{% endif %}</div>
+</div>
+
+<div class="row mb-2">
+  <div class="col-sm-12 col-lg-4 col-xxl-2 fw-bold">Hashtag:</div>
+  <div class="col-sm-12 col-lg-8 col-xxl-10">{% if active_show.hashtag %}#{{active_show.hashtag}}{% endif %}</div>
+</div>
+
+<div class="row mb-2">
+  <div class="col-sm-12 col-lg-4 col-xxl-2 fw-bold">Venmo:</div>
+  <div class="col-sm-12 col-lg-8 col-xxl-10">{% if active_show.venmo %}<a href="https://venmo.com/{{active_show.venmo}}/" target="venmo">{{active_show.cashapp}}</a>{% endif %}</div>
+</div>
+
+<div class="row mb-2">
+  <div class="col-sm-12 col-lg-4 col-xxl-2 fw-bold">CashApp:</div>
+  <div class="col-sm-12 col-lg-8 col-xxl-10">{% if active_show.cashapp %}<a href="https://cash.app/{{active_show.cashapp}}/" target="cashapp">{{active_show.cashapp}}</a>{% endif %}</div>
+</div>
+
+{% endblock %}

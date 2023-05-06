@@ -264,6 +264,9 @@ class Show(models.Model):
         return self.name
 
 class Event(models.Model):
+    class Meta:
+        ordering = ['-start_time']
+        
     CANCELED = -1
     PLANNING = 0
     CONFIRMED = 1

@@ -1,0 +1,22 @@
+{% extends 'manage.html' %}
+{% load static crispy_forms_tags %}
+{% block page_title %} | Edit{% endblock %}
+
+{% block page_header %}
+{% endblock %}
+
+{% block content %}
+
+<div class="mb-3 align-items-center d-flex flex-row justify-content-between">
+  <h3>Remove: {{active_talent.performer.name}}</h3>
+</div>
+
+Are you sure you want to remove {{active_talent.performer.name}} from {{active_event.name}}?
+
+<form method="post" action="{% url 'delete_talent' show_id=active_show.id event_id=active_event.id talent_id=active_talent.id %}">
+  {% csrf_token %}
+<input class="btn btn-danger" type="submit" value="Remove"/>
+<a class="btn btn-secondary" href="{% url 'manage_event' show_id=active_show.id event_id=active_event.id %}">Cancel</a>
+</form>
+
+{% endblock %}

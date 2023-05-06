@@ -1,0 +1,21 @@
+{% extends 'manage.html' %}
+{% load static crispy_forms_tags %}
+{% block page_title %} | Add{% endblock %}
+
+{% block page_header %}
+{% endblock %}
+
+{% block content %}
+
+<div class="mb-3 align-items-center d-flex flex-row justify-content-between">
+  <h3>New Talent</h3>
+</div>
+
+<form method="post" action="{% url 'add_talent' show_id=active_show.id event_id=active_event.id %}">
+  {% csrf_token %}
+{{ talent_form|crispy }}
+<input class="btn btn-success" type="submit" value="Add"/>
+<a class="btn btn-secondary" href="{% url 'manage_event' show_id=active_show.id event_id=active_event.id %}">Cancel</a>
+</form>
+
+{% endblock %}

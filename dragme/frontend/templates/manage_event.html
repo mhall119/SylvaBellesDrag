@@ -1,0 +1,99 @@
+{% extends 'manage.html' %}
+{% load static %}
+{% block page_title %} | Login{% endblock %}
+
+{% block page_header %}
+{% endblock %}
+
+{% block content %}
+
+<div class="mb-3 align-items-center d-flex flex-row justify-content-between">
+    <h3 class="sidenav"><a href="{% url 'manage_show' show_id=active_show.id %}"><i class="fas fa-chevron-left"></i></a> {{active_event.name}}</h3>
+    <div>
+        <a class="btn hilight-dark" href="{% url 'edit_event' show_id=active_show.id event_id=active_event.id %}"><i class="fas fa-edit"></i> <span class="d-none d-sm-inline">Edit</span></a>
+    </div>
+</div>
+
+<div class="row mb-2">
+    <div class="col-sm-12 col-lg-4 col-xxl-2 fw-bold">Status:</div>
+    <div class="col-sm-12 col-lg-8 col-xxl-10">{{active_event.get_status_display}}</div>
+</div>
+
+<div class="row mb-2">
+    <div class="col-sm-12 col-lg-4 col-xxl-2 fw-bold">Host:</div>
+    <div class="col-sm-12 col-lg-8 col-xxl-10">{{active_event.host}}</div>
+</div>
+
+<div class="row mb-3">
+    <div class="col-sm-12 col-lg-4 col-xxl-2 fw-bold">Time:</div>
+    <div class="col-sm-12 col-lg-8 col-xxl-10">{{active_event.start_time}} - {{active_event.end_time}}</div>
+</div>
+
+<div class="row mb-2">
+    <div class="col-sm-12 col-lg-4 col-xxl-2 fw-bold">Venue:</div>
+    <div class="col-sm-12 col-lg-8 col-xxl-10">{{active_event.venue}}</div>
+</div>
+
+<div class="row mb-2">
+    <div class="col-sm-12 col-lg-4 col-xxl-2 fw-bold">Summary:</div>
+    <div class="col-sm-12 col-lg-8 col-xxl-10">{{active_event.summary|safe}}</div>
+</div>
+
+<div class="row mb-2">
+    <div class="col-sm-12 col-lg-4 col-xxl-2 fw-bold">Website:</div>
+    <div class="col-sm-12 col-lg-8 col-xxl-10">{{active_event.event_url}}</div>
+</div>
+
+<div class="row mb-2">
+    <div class="col-sm-12 col-lg-4 col-xxl-2 fw-bold">Poster:</div>
+    <div class="col-sm-12 col-lg-6">
+        {% if active_event.poster %}<img class="intro-img img-fluid mb-3 mb-lg-0 rounded object-fit-contain" src="{{active_event.poster.url}}" alt="..." />
+        {% elif active_show.banner %}<img class="intro-img img-fluid mb-3 mb-lg-0 rounded object-fit-contain" src="{{active_show.banner.url}}" alt="..." />
+        {% endif %}
+    </div>
+    <div class="col-sm-0 col-lg-2 col-xxl-4"></div>
+</div>
+
+<div class="row mb-2">
+    <div class="col-sm-12 col-lg-4 col-xxl-2 fw-bold">Instagram:</div>
+    <div class="col-sm-12 col-lg-8 col-xxl-10">{% if active_event.instagram %}<a href="https://instagram.com/{{active_event.instagram}}" target="instagram">{{active_event.instagram}}</a>{% endif %}</div>
+</div>
+
+<div class="row mb-2">
+    <div class="col-sm-12 col-lg-4 col-xxl-2 fw-bold">Twitter:</div>
+    <div class="col-sm-12 col-lg-8 col-xxl-10">{% if active_event.twitter %}<a href="https://twitter.com/{{active_event.twitter}}/" target="twitter">{{active_event.twitter}}</a>{% endif %}</div>
+</div>
+
+<div class="row mb-2">
+    <div class="col-sm-12 col-lg-4 col-xxl-2 fw-bold">Hashtag:</div>
+    <div class="col-sm-12 col-lg-8 col-xxl-10">{{active_event.hashtag}}</div>
+</div>
+
+<div class="row mb-2">
+    <div class="col-sm-12 col-lg-4 col-xxl-2 fw-bold">Venmo:</div>
+    <div class="col-sm-12 col-lg-8 col-xxl-10">{% if active_event.venmo %}<a href="https://venmo.com/{{active_event.venmo}}/" target="venmo">{{active_event.venmo}}</a>{% endif %}</div>
+</div>
+
+<div class="row mb-2">
+    <div class="col-sm-12 col-lg-4 col-xxl-2 fw-bold">CashApp:</div>
+    <div class="col-sm-12 col-lg-8 col-xxl-10">{% if active_event.cashapp %}<a href="https://cash.app/{{active_event.cashapp}}/" target="cashapp">{{active_event.cashapp}}</a>{% endif %}</div>
+</div>
+
+<div class="row mb-2 header-dark">
+    <div class="col-10">Performers</div>
+</div>
+
+{% for talent in active_event.lineup.all %}
+<div class="row mb-2">
+    <div class="col-6  sidenav"><a href="{% url 'profile' profile_id=talent.performer.id %}" target="profile">{{talent.performer.name}}</a></div>
+    <div class="col-2">{{talent.get_role_display}}</div>
+    <div class="col-2">{{talent.get_status_display}}</div>
+    <div class="col-2">
+        <a class="btn btn-secondary btn-sm" href="{% url 'edit_talent' show_id=active_show.id event_id=active_event.id talent_id=talent.id %}"><i class="fas fa-edit"></i></a>
+        <a class="btn btn-danger btn-sm"  href="{% url 'delete_talent' show_id=active_show.id event_id=active_event.id talent_id=talent.id %}"><i class="fas fa-trash"></i></a>
+    </div>
+</div>
+{% endfor %}
+<a class="btn btm-sm btn-success" href="{% url 'add_talent' show_id=active_show.id event_id=active_event.id %}"><i class="fas fa-plus"></i> Add</a>
+
+{% endblock %}

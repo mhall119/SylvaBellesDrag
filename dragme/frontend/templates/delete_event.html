@@ -1,0 +1,22 @@
+{% extends 'manage.html' %}
+{% load static crispy_forms_tags %}
+{% block page_title %} | Delete{% endblock %}
+
+{% block page_header %}
+{% endblock %}
+
+{% block content %}
+
+<div class="mb-3 align-items-center d-flex flex-row justify-content-between">
+  <h3>Delete: {{active_event.name}}</h3>
+</div>
+
+Are you sure you want to delete {{active_event.name}}?
+
+<form method="post" action="{% url 'delete_event' show_id=active_show.id event_id=active_event.id %}">
+  {% csrf_token %}
+<input class="btn btn-danger" type="submit" value="Delete"/>
+<a class="btn btn-secondary" href="{% url 'manage_show' show_id=active_show.id %}">Cancel</a>
+</form>
+
+{% endblock %}

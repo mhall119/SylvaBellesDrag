@@ -1,0 +1,50 @@
+{% extends 'manage.html' %}
+{% load static %}
+{% block page_title %} | Login{% endblock %}
+
+{% block page_header %}
+{% endblock %}
+
+{% block content %}
+
+<div class="row">
+
+  <div class="col-3">
+    <div class="header-dark">My Shows</div>
+    {% for show in shows %}
+    <div class="p-1 {% if active_show and active_show.id == show.id %}hilight-dark{% endif %}"><a href="{% url 'manage_show' show_id=show.id %}">{{ show.name }}</a></div>
+    {% endfor %}
+  </div>
+
+  {% if active_show %}
+  <div class="col-6">
+     {% if active_event %}
+     <div class="align-items-center d-flex flex-row justify-content-between">
+      <h3><a href="{% url 'manage_show' show_id=active_show.id %}"><i class="fas fa-chevron-left"></i> </a>{{active_event.name}}</h3>
+      <div>{{active_event.start_time}}</div>
+    </div>
+   {% else %}
+     <div class="align-items-center d-flex flex-row justify-content-between">
+      <h3>{{active_show.name}}</h3>
+      <button class="btn btn-success">Add Event</button>
+    </div>
+    <div>
+      {{ show_form.as_p }}
+    </div>
+   {% endif %}
+  </div>
+  <div class="col-3">
+    <div class="header-dark">Events</div>
+    {% for event in active_show.events.all|slice:":20" %}
+    <div class="p-1 {% if active_event and active_event.id == event.id %}hilight-dark{% endif %}"><a href="{% url 'manage_event' show_id=active_show.id event_id=event.id %}"><div>{{event.name}}</div><div class="small text-muted">{{ event.start_time }}</div></a></div>
+    {% endfor %}
+  </div>
+  {% else %}
+    <div class="col-8 d-flex">
+      <div class="align-items-center justify-content-between d-inline">
+        <h2>Select a show from the list to the left.</h2>
+      </div>
+  </div>
+  {% endif %}
+</div>
+{% endblock %}

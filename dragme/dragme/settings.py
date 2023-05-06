@@ -40,11 +40,16 @@ INSTALLED_APPS = [
     'cities_light',
     "imagekit",
     "imagekit_cropper",
+    'crispy_forms',
+    'crispy_bootstrap5',
 
     # drag.me apps
     'core',
     'frontend',
 ]
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+
+CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
