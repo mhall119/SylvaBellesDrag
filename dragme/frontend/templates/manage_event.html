@@ -85,13 +85,13 @@
 
 {% for talent in active_event.lineup.all %}
 <div class="row mb-2">
-    <div class="col-6  sidenav"><a href="{% url 'profile' profile_id=talent.performer.id %}" target="profile">{{talent.performer.name}}</a></div>
-    <div class="col-2">{{talent.get_role_display}}</div>
-    <div class="col-2">{{talent.get_status_display}}</div>
-    <div class="col-2">
+    <div class="order-1 col-6 col-lg-6 col-xxl-6 sidenav"><a href="{% url 'profile' profile_id=talent.performer.id %}" target="profile">{{talent.performer.name}}</a></div>
+    <div class="order-2 order-lg-last col-6 col-lg-6 col-xxl-2 offset-sm-12">
         <a class="btn btn-secondary btn-sm" href="{% url 'edit_talent' show_id=active_show.id event_id=active_event.id talent_id=talent.id %}"><i class="fas fa-edit"></i></a>
         <a class="btn btn-danger btn-sm"  href="{% url 'delete_talent' show_id=active_show.id event_id=active_event.id talent_id=talent.id %}"><i class="fas fa-trash"></i></a>
     </div>
+    <div class="order-3 col-6 col-lg-3 col-xxl-2">{{talent.get_role_display}}</div>
+    <div class="order-4 col-6 col-lg-3 col-xxl-2">{{talent.get_status_display}}</div>
 </div>
 {% endfor %}
 <a class="btn btm-sm btn-success" href="{% url 'add_talent' show_id=active_show.id event_id=active_event.id %}"><i class="fas fa-plus"></i> Add</a>

@@ -75,7 +75,7 @@
                 <div class="col-12 mb-8 mt-8 align-items-center card-body">
                     <div class="row">
 
-                        <div class="col-md-3 col-sm-12 sidenav">
+                        <div class="col-md-3 col-sm-12 sidenav mb-3">
                           <div class="header-dark">My Shows</div>
                           {% for show in shows %}
                           <div class="p-1 {% if active_show and active_show.id == show.id %}hilight-dark{% endif %}"><a href="{% url 'manage_show' show_id=show.id %}">{{ show.name }}</a></div>
